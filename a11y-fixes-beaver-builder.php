@@ -12,11 +12,24 @@
  * Text Domain: fl-builder
  */
 
- function afbb_button_frontend( $path, $module) {
+add_filter('fl_builder_module_frontend_file', 'afbb_button_frontend', 10, 2); 
+
+function afbb_button_frontend( $path, $module) {
      if( 'button' != $module->slug) {
          return $path;
      }
      return __DIR__ . '/includes/button.php';
- }
+}
 
- add_filter('fl_builder_module_frontend_file', 'afbb_button_frontend', 10, 2); 
+ 
+add_filter('fl_builder_render_module_html', 'afbb_button_render_frontend', 10, 4);
+
+function afbb_button_render_frontend( $path, $type, $settings, $module) {
+    if( 'button' != $type) {
+        return $path;
+    }
+    return __DIR__ . '/includes/button.php';
+}
+
+
+ 
